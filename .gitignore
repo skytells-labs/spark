@@ -1,0 +1,17 @@
+.next
+node_modules
+.env
+.env.local
+dist
+*.tsbuildinfo
+build
+out
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes

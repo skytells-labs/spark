@@ -1,0 +1,419 @@
+@import "tailwindcss";
+@source "../../node_modules/streamdown/dist/index.js";
+
+/* ── Tailwind v4 dark-class variant ─────────────────────────────────── */
+@custom-variant dark (&:is(.dark *));
+
+/* ── Skytells Spark: pure-black shell, hairline borders, neutral grays ─ */
+:root {
+  /* Light mode tokens */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0a0a0a;
+  --primary-foreground: #fafafa;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #0a0a0a;
+  --muted: #f5f5f5;
+  --muted-foreground: #737373;
+  --accent: #f5f5f5;
+  --accent-foreground: #0a0a0a;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #a3a3a3;
+  --radius: 0.5rem;
+
+  /* Legacy custom tokens (light) */
+  --panel: #f5f5f5;
+  --panel-2: #ebebeb;
+  --line: #e0e0e0;
+  --line-soft: #eeeeee;
+  --text: #0a0a0a;
+  --blue: #0070f3;
+}
+
+.dark {
+  /* Dark mode tokens */
+  --background: #000000;
+  --foreground: #fafafa;
+  --card: #0a0a0a;
+  --card-foreground: #fafafa;
+  --popover: #0a0a0a;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #0a0a0a;
+  --secondary: #171717;
+  --secondary-foreground: #fafafa;
+  --muted: #171717;
+  --muted-foreground: #a3a3a3;
+  --accent: #171717;
+  --accent-foreground: #fafafa;
+  --destructive: oklch(0.45 0.18 25);
+  --destructive-foreground: #fafafa;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.1);
+  --ring: #525252;
+
+  /* Legacy custom tokens (dark) */
+  --panel: #0a0a0a;
+  --panel-2: #111111;
+  --line: #242424;
+  --line-soft: #171717;
+  --text: #ededed;
+  --blue: #0070f3;
+}
+
+/* ── Tailwind @theme inline mapping ─────────────────────────────────── */
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* ── Base layer ──────────────────────────────────────────────────────── */
+@layer base {
+  * {
+    box-sizing: border-box;
+    @apply border-border outline-ring/50;
+  }
+
+  html,
+  body {
+    min-height: 100%;
+    margin: 0;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+      BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    user-select: none;
+  }
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 112, 243, 0.45);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border: 3px solid #050505;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+html:not(.dark) ::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-color: #f5f5f5;
+}
+
+html:not(.dark) ::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
+
+/* ── Utilities ───────────────────────────────────────────────────────── */
+.mono {
+  font-family: var(--font-geist-mono), "SFMono-Regular", Consolas, monospace;
+}
+
+.glass-line {
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.artifact-glow {
+  box-shadow: 0 0 0 1px rgba(0, 112, 243, 0.7), 0 0 0 4px rgba(0, 112, 243, 0.18);
+}
+
+.grid-fade {
+  background-image:
+    linear-gradient(rgba(0, 112, 243, 0.38) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 112, 243, 0.38) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+/* ── Skytells design patterns ────────────────────────────────────────── */
+.skytells-card {
+  box-shadow: 0 0 0 1px var(--border);
+}
+
+.skytells-input {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+html:not(.dark) .skytells-input {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.skytells-btn-primary {
+  background: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--border);
+}
+
+.skytells-btn-primary:hover {
+  opacity: 0.92;
+}
+
+/* ── Grid background ─────────────────────────────────────────────────── */
+.bg-grid-skytells {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 75% 60% at 50% 12%, rgba(0, 0, 0, 0.92) 0%, transparent 62%);
+}
+
+html:not(.dark) .bg-grid-skytells {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+}
+
+/* ── Shimmer text ────────────────────────────────────────────────────── */
+.skytells-shimmer-text {
+  position: relative;
+  display: inline-block;
+  /*
+    GPU layer promotion without layout containment.
+    `contain: paint` clips painting to the element's border box (safe for inline).
+    `will-change: background-position` promotes to its own compositor layer so
+    the animation runs entirely on the GPU thread — no JS, no layout recalc.
+    `transform: translateZ(0)` is the belt-and-suspenders fallback for older browsers.
+  */
+  contain: paint;
+  transform: translateZ(0);
+  will-change: background-position;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.72), #fff 36%, rgba(101, 173, 255, 0.92) 50%, #fff 64%, rgba(255, 255, 255, 0.72)),
+    #fff;
+  background-size: 220% 100%;
+  background-clip: text;
+  color: transparent;
+  animation: skytells-title-shimmer 4.8s ease-in-out infinite;
+  /* Prevent animation restart on re-render by keeping fill-mode neutral */
+  animation-fill-mode: none;
+}
+
+html:not(.dark) .skytells-shimmer-text {
+  background:
+    linear-gradient(90deg, rgba(10, 10, 10, 0.72), #0a0a0a 36%, rgba(0, 112, 243, 0.92) 50%, #0a0a0a 64%, rgba(10, 10, 10, 0.72)),
+    #0a0a0a;
+  background-size: 220% 100%;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes skytells-title-shimmer {
+  0%, 18% {
+    background-position: 100% 50%;
+  }
+  48%, 100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ── Entry animations ────────────────────────────────────────────────── */
+@keyframes bf-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.bf-enter-1 { animation: bf-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; opacity: 0; }
+.bf-enter-2 { animation: bf-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards; opacity: 0; }
+.bf-enter-3 { animation: bf-fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards; opacity: 0; }
+
+/* ── Onboarding pulse ring ───────────────────────────────────────────── */
+@keyframes onboarding-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50%       { transform: scale(1.12); opacity: 0.2; }
+}
+
+.onboarding-pulse-ring {
+  animation: onboarding-pulse 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bf-enter-1, .bf-enter-2, .bf-enter-3, .onboarding-pulse-ring {
+    animation: none;
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.setup-project-card {
+  position: relative;
+  width: min(340px, 40vw);
+  aspect-ratio: 1.32;
+  border: 1px solid rgba(0, 112, 243, 0.88);
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(0, 112, 243, 0.13), rgba(0, 112, 243, 0.02) 52%, rgba(0, 0, 0, 0)),
+    #07101f;
+  box-shadow:
+    0 0 0 1px rgba(0, 112, 243, 0.24),
+    0 24px 80px rgba(0, 0, 0, 0.38);
+  overflow: hidden;
+  animation: setup-card-breathe 2.4s ease-in-out infinite;
+}
+
+.setup-project-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-top: 2px solid rgba(0, 112, 243, 0.9);
+  opacity: 0.8;
+}
+
+.setup-project-window {
+  position: absolute;
+  inset: 24px 20px 22px;
+  border: 1px solid rgba(0, 112, 243, 0.88);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.setup-project-dots {
+  position: absolute;
+  top: 15px;
+  left: 18px;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+}
+
+.setup-project-dots span {
+  width: 9px;
+  height: 9px;
+  border: 1px solid rgba(0, 112, 243, 0.95);
+  border-radius: 999px;
+  animation: pulse-dot 1.45s ease-in-out infinite;
+}
+
+.setup-project-dots span:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.setup-project-dots span:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+.setup-project-grid {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 46px;
+  bottom: 20px;
+  background-image:
+    linear-gradient(rgba(0, 112, 243, 0.78) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 112, 243, 0.78) 1px, transparent 1px);
+  background-size: 36px 28px;
+  mask-image: linear-gradient(to bottom, black 0%, black 62%, transparent 100%);
+  opacity: 0.86;
+}
+
+.setup-project-peak {
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  width: 118px;
+  height: 116px;
+  transform: translateX(-50%);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  border: 1px solid rgba(0, 112, 243, 0.86);
+  background: rgba(5, 12, 22, 0.84);
+  box-shadow: inset 0 0 0 1px rgba(0, 112, 243, 0.1);
+}
+
+.setup-project-scan {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 46px;
+  height: 1px;
+  background: rgba(0, 112, 243, 0.95);
+  box-shadow: 0 0 16px rgba(0, 112, 243, 0.75);
+  animation: setup-scan 2.6s ease-in-out infinite;
+}
+
+@keyframes setup-card-breathe {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(0, 112, 243, 0.22),
+      0 24px 80px rgba(0, 0, 0, 0.38);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(0, 112, 243, 0.44),
+      0 24px 80px rgba(0, 0, 0, 0.42);
+  }
+}
+
+@keyframes setup-scan {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(116px);
+    opacity: 1;
+  }
+}
