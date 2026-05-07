@@ -73,7 +73,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         ok: false,
-        error: error instanceof Error ? error.message : "Unable to reach Skytells Orchestrator.",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Unable to reach Skytells Orchestrator.",
       },
       { status: 502 },
     );

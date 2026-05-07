@@ -3,7 +3,6 @@ import { getRuntimeConfig } from "@/lib/media-capabilities";
 
 export const runtime = "nodejs";
 
-export async function GET() {
+export function GET() {
   return NextResponse.json(getRuntimeConfig());
 }
-
