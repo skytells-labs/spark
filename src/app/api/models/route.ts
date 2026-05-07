@@ -13,7 +13,8 @@ export async function GET(request: NextRequest) {
       models: [],
       configured: false,
       defaultModel: process.env.SKYTELLS_DEFAULT_MODEL || null,
-      message: "Add SKYTELLS_API_KEY or paste a runtime key to load live text models.",
+      message:
+        "Add SKYTELLS_API_KEY or paste a runtime key to load live text models.",
     });
   }
 
