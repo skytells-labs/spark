@@ -8,11 +8,15 @@
 
 **Skytells Spark** is an open-source, production-ready AI application workspace — built by [Skytells](https://skytells.ai) — that takes a product idea and delivers working SaaS software: code, design assets, media, infrastructure plans, and a clear path to production.
 
+![Skytells Spark](https://github.com/skytells-labs/spark/blob/main/public/images/spark.jpg?raw=true)
+
 This is not a code editor add-on or a chat interface with a code block. It is a complete product workspace: one place to generate the frontend, the backend, the database schema, the billing system, the generated visuals, and the deployment configuration — all through a single, unified AI interface powered by Skytells models.
 
 > **Recommended:** Deploy on [Skytells](https://console.skytells.ai) for the best experience — including fully managed infrastructure, private networking between your application and its databases, and native integration with Skytells AI capabilities.
 
-[![Deploy on Skytells](https://console.skytells.ai/brand/deploy-buttons/dark-compact.png)](https://console.skytells.ai/deploy?repo=https%3A%2F%2Fgithub.com%2Fskytells-labs%2Fspark)
+<a href="https://console.skytells.ai/deploy?repo=https%3A%2F%2Fgithub.com%2Fskytells-labs%2Fspark" target="_blank" rel="noopener noreferrer">
+  <img src="https://console.skytells.ai/brand/deploy-buttons/dark-compact.png" alt="Deploy on Skytells" />
+</a>
 
 ## What Skytells Spark Produces
 
