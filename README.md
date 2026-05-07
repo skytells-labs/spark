@@ -18,7 +18,7 @@ This is not a code editor add-on or a chat interface with a code block. It is a 
   <img src="https://console.skytells.ai/brand/deploy-buttons/dark-compact.png" alt="Deploy on Skytells" height="40 />
 </a>
 
-
+You can also run Spark on any provider.
 
 ## What Skytells Spark Produces
 
