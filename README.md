@@ -15,7 +15,7 @@ This is not a code editor add-on or a chat interface with a code block. It is a 
 > **Recommended:** Deploy on [Skytells](https://console.skytells.ai) for the best experience — including fully managed infrastructure, private networking between your application and its databases, and native integration with Skytells AI capabilities.
 
 <a href="https://console.skytells.ai/deploy?repo=https%3A%2F%2Fgithub.com%2Fskytells-labs%2Fspark" target="_blank" rel="noopener noreferrer">
-  <img src="https://console.skytells.ai/brand/deploy-buttons/dark-compact.png" alt="Deploy on Skytells" />
+  <img src="https://console.skytells.ai/brand/deploy-buttons/dark-compact.png" alt="Deploy on Skytells" height="40 />
 </a>
 
 ## What Skytells Spark Produces
