@@ -1,12 +1,15 @@
 "use client";
 
+import { memo } from "react";
 import { motion } from "motion/react";
 
+const DOT_DELAYS = [0, 150, 300] as const;
+
 /** Animated three-dot indicator for active thinking/loading states. */
-export function ThinkingDots() {
+export const ThinkingDots = memo(function ThinkingDots() {
   return (
     <span className="ml-0.5 inline-flex items-center gap-0.5">
-      {[0, 150, 300].map((delay) => (
+      {DOT_DELAYS.map((delay) => (
         <motion.span
           key={delay}
           className="inline-block size-1 rounded-full bg-current"
@@ -16,4 +19,4 @@ export function ThinkingDots() {
       ))}
     </span>
   );
-}
+});

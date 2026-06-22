@@ -1,38 +1,61 @@
+import { unstable_cache } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import { ModelType } from "skytells";
 import { validateDatabases } from "@/lib/infrastructure";
 import { getSkytellsClient, normalizeSkytellsError } from "@/lib/skytells";
 
 export const runtime = "nodejs";
+export const revalidate = 30;
+
+const getCachedDatabaseHealth = unstable_cache(
+  async () => validateDatabases(),
+  ["health-databases"],
+  { revalidate: 30 },
+);
+
+const getCachedDefaultSkytellsHealth = unstable_cache(
+  async () => validateSkytells(getSkytellsClient()),
+  ["health-skytells-default"],
+  { revalidate: 30 },
+);
 
 export async function GET(request: NextRequest) {
   const runtimeKey = request.headers.get("x-skytells-api-key") || undefined;
   const client = getSkytellsClient(runtimeKey);
 
   const [databases, skytells] = await Promise.all([
-    validateDatabases(),
-    validateSkytells(client),
+    getCachedDatabaseHealth(),
+    runtimeKey ? validateSkytells(client) : getCachedDefaultSkytellsHealth(),
   ]);
 
-  return NextResponse.json({
-    ok: databases.ok && skytells.ok,
-    skytells,
-    saas: databases.saas,
-    databases,
-    requirements: {
-      console: "https://console.skytells.ai",
-      projects: "https://console.skytells.ai/projects",
-      databaseCreation:
-        "https://console.skytells.ai/projects/{project_name}/databases/new",
-      requiredEnvironment: [
-        "SKYTELLS_API_KEY",
-        "POSTGRES_URL or DATABASE_URL",
-        "LIBSQL_URL",
-        "LIBSQL_AUTH_TOKEN (when required by the Skytells libSQL database)",
-      ],
-      recommendedEnvironment: ["REDIS_URL"],
+  return NextResponse.json(
+    {
+      ok: databases.ok && skytells.ok,
+      skytells,
+      saas: databases.saas,
+      databases,
+      requirements: {
+        console: "https://console.skytells.ai",
+        projects: "https://console.skytells.ai/projects",
+        databaseCreation:
+          "https://console.skytells.ai/projects/{project_name}/databases/new",
+        requiredEnvironment: [
+          "SKYTELLS_API_KEY",
+          "POSTGRES_URL or DATABASE_URL",
+          "LIBSQL_URL",
+          "LIBSQL_AUTH_TOKEN (when required by the Skytells libSQL database)",
+        ],
+        recommendedEnvironment: ["REDIS_URL"],
+      },
     },
-  });
+    {
+      headers: {
+        "Cache-Control": runtimeKey
+          ? "private, no-store"
+          : "public, s-maxage=30, stale-while-revalidate=60",
+      },
+    },
+  );
 }
 
 async function validateSkytells(client: ReturnType<typeof getSkytellsClient>) {

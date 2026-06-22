@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { ChatPageClient } from "@/components/chat/chat-page-client";
 
-export async function generateMetadata({
+export function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
-}): Promise<Metadata> {
-  const { id } = await params;
+  params: { id: string };
+}): Metadata {
+  const { id } = params;
 
   return {
     title: `Workspace ${id.slice(0, 8)}`,
@@ -15,11 +15,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function ChatPage({
+export default function ChatPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = await params;
+  const { id } = params;
   return <ChatPageClient chatId={id} />;
 }
